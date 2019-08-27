@@ -9,13 +9,15 @@ import Logo from '~/components/Logo';
 import Background from '~/components/Background';
 import { Container, Form, Input, SignUpLink, SignUpLinkText } from './styles';
 
-export default function SignIn({ navigation }) {
+export default function SignUp({ navigation }) {
   return (
     <Background>
       <Container>
         <Logo />
 
         <Form>
+          <Input autoCorrect={false} placeholder="Nome completo" />
+
           <Input
             keyboardType="email-address"
             autoCorrect={false}
@@ -24,18 +26,18 @@ export default function SignIn({ navigation }) {
           />
 
           <Input secureTextEntry placeholder="Sua senha secreta" />
-          <Button onPress={() => {}}>Acessar</Button>
+          <Button onPress={() => {}}>Criar conta</Button>
         </Form>
 
-        <SignUpLink onPress={() => navigation.navigate('SignUp')}>
-          <SignUpLinkText>Criar conta gratuita</SignUpLinkText>
+        <SignUpLink onPress={() => navigation.navigate('SignIn')}>
+          <SignUpLinkText>Já tenho login</SignUpLinkText>
         </SignUpLink>
       </Container>
     </Background>
   );
 }
 
-SignIn.propTypes = {
+SignUp.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
   }).isRequired,
