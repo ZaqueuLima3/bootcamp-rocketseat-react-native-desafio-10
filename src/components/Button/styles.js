@@ -5,9 +5,9 @@ export const Container = styled(RectButton)`
   height: 46px;
   align-items: center;
   justify-content: center;
-  margin-top: 5px;
+  margin-top: ${props => (props.marginTop ? `${props.marginTop}px` : '5px')};
 
-  background: #e5556e;
+  background: ${props => (props.background ? props.background : '#e5556e')};
   border-radius: 4px;
 `;
 

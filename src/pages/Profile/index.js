@@ -1,15 +1,136 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { withNavigationFocus } from 'react-navigation';
 
 import Background from '~/components/Background';
 import Header from '~/components/Header';
-// import { Container } from './styles';
+import Button from '~/components/Button';
 
-export default function Profile() {
+import { Container, Form, Input, Separator } from './styles';
+import { updateProfileRequest } from '~/store/modules/user/actions';
+import { signOut } from '~/store/modules/auth/actions';
+
+function Profile() {
+  const dispatch = useDispatch();
+
+  const profile = useSelector(state => state.user.profile);
+
+  const emailRef = useRef();
+  const oldPasswordRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
+
+  const [name, setName] = useState(profile.name);
+  const [email, setEmail] = useState(profile.email);
+  const [oldPassword, setOldPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  useEffect(() => {
+    setOldPassword('');
+    setPassword('');
+    setConfirmPassword('');
+  }, [profile]);
+
+  function handleSubmit() {
+    dispatch(
+      updateProfileRequest({
+        name,
+        email,
+        oldPassword,
+        password,
+        confirmPassword,
+      })
+    );
+  }
+
+  function handleLogout() {
+    dispatch(signOut());
+  }
+
   return (
     <Background>
       <Header />
-      <Text>Profile</Text>
+      <Container>
+        <Form>
+          <Input
+            icon="person-outline"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Nome completo"
+            returnKeyType="next"
+            onSubmitEditing={() => emailRef.current.focus()}
+            value={name}
+            onChangeText={setName}
+          />
+
+          <Input
+            icon="mail-outline"
+            keyboardType="email-address"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Digite seu e-mail"
+            ref={emailRef}
+            returnKeyType="next"
+            onSubmitEditing={() => oldPasswordRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
+          />
+
+          <Separator />
+
+          <Input
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Sua senha atual"
+            ref={oldPasswordRef}
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
+            value={oldPassword}
+            onChangeText={setOldPassword}
+          />
+
+          <Input
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Sua nova senha"
+            ref={passwordRef}
+            returnKeyType="next"
+            onSubmitEditing={() => confirmPasswordRef.current.focus()}
+            value={password}
+            onChangeText={setPassword}
+          />
+
+          <Input
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Confirmação de senha"
+            ref={confirmPasswordRef}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
+
+          <Button onPress={handleSubmit} background="#f8668d">
+            Salvar perfil
+          </Button>
+          <Button onPress={handleLogout} marginTop={15}>
+            Sair do Meetapp
+          </Button>
+        </Form>
+      </Container>
     </Background>
   );
 }
+
+Profile.navigationOptions = {
+  tabBarLabel: 'Meu perfil',
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name="person" size={20} color={tintColor} />
+  ),
+};
+
+export default withNavigationFocus(Profile);

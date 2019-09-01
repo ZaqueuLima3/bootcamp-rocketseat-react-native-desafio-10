@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   width: 100%;
-  height: 350px;
   margin-bottom: 10px;
   overflow: hidden;
 
@@ -10,19 +9,31 @@ export const Container = styled.View`
   border-radius: 4px;
 `;
 
+export const ImageMeetup = styled.Image`
+  width: 100%;
+  height: 150px;
+`;
+
 export const Section = styled.View`
   padding: 10px 20px;
 `;
 
 export const Title = styled.Text`
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-size: 24px;
   font-weight: bold;
+  overflow: hidden;
   color: rgba(0, 0, 0, 0.8);
 `;
 
-export const Infos = styled.Text`
-  margin-bottom: 5px;
+export const Infos = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8px;
+`;
+
+export const InfosText = styled.Text`
+  margin-left: 5px;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.4);
 `;

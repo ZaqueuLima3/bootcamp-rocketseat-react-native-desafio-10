@@ -13,7 +13,7 @@ export const Head = styled.View`
   margin-bottom: 30px;
 `;
 
-export const Date = styled.Text`
+export const DateText = styled.Text`
   font-size: 24px;
   font-weight: bold;
   color: #fff;
