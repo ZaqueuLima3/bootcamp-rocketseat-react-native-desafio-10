@@ -7,7 +7,7 @@ export default function src() {
   return (
     <>
       <App />
-      <StatusBar barStyle="light-content" backgroundColor="#22202c" />
+      <StatusBar barStyle="light-content" backgroundColor="#19171F" />
     </>
   );
 }
